@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Link,useNavigate} from 'react-router-dom';
 import Login from './Login';
 import Validation from '../SignupValidation'; 
@@ -14,19 +14,21 @@ function Signup() {
   const navigate = useNavigate();
   const [errors, setErrors] =useState ({})
   const handleInput = (event) =>{
-      setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
+      setValues(prev => ({...prev, [event.target.name]: event.target.value}));
   }
   const handleSubmit =(event) => {
       event.preventDefault();
       setErrors(Validation(values));
-      if (errors.name === "" && errors.email === "" &&errors.password === "") {
-        axios.post('http://localhost:80/signup',values)
-        .then(res => {
+    if (errors.name === "" && errors.email === "" && errors.password === "") {
+        axios.post('http://localhost:81/signup',values)
+        .then((res) => {
           navigate('/');
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
+      
       }
-  }
+    }
+  
 
   return (
     <>
@@ -79,6 +81,6 @@ function Signup() {
         </div>
     </div></>
   )
-}
+};
 
 export default Signup

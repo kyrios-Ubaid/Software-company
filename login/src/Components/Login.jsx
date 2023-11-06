@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
 import Signup from './Signup';
 import Validation from '../LoginValidation'; 
@@ -6,30 +6,36 @@ import axios from 'axios';
 
 
 function Login() {
-    const [values, setValues] =useState({
+    const [values, setValues] = useState({
         email: '',
-        password:''
-    })
+        password: ''
+    });
     const navigate = useNavigate();
-    const [errors, setErrors] =useState ({})
-    const handleInput = (event) =>{
-        setValues(prev => ({...prev, [event.target.name]: [event.target.value]}))
-    }
-    const handleSubmit =(event) => {
+    const [errors, setErrors] = useState({});
+
+    const handleInput = (event) => {
+        setValues((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+    };
+
+    const handleSubmit = (event) => {
         event.preventDefault();
         setErrors(Validation(values));
-        if (errors.email === "" &&errors.password === "") {
-            axios.post('http://localhost:80/login',values)
-            .then(res => {
-                if(res.data === "Success"){
-                    navigate('/home');
-                }else{
-                    alert("No record existed");
-                }
-            })
-            .catch(err => console.log(err));
-          }
-    }
+    };
+
+    useEffect(() => {
+        if (errors.email === "" && errors.password === "") {
+            axios.post('http://localhost:81/login', values)
+                .then((res) => {
+                    if (res.data === "Success") {
+                        navigate('/home');
+                    } else {
+                        alert("No record existed");
+                    }
+                })
+                .catch((err) => console.log(err));
+        }
+    }, [errors, values, navigate]);
+
   return (
     <>
     <div className='bg-zinc-200 h-screen flex justify-center items-center '>
@@ -70,7 +76,7 @@ function Login() {
             </div>
             <p className='flex justify-center font-bold'>OR</p>
             <div>
-                <p className='text-zinc-500'>Need an Account? <span className='text-black font-bold underline underline-offset-4'> <Link to="/Signup">SignUp</Link></span></p>
+                <p className='text-zinc-500'>Need an Account? <span className='text-black font-bold underline underline-offset-4'> <Link to="Signup">SignUp</Link></span></p>
                 </div>
             </form>
         </div>
@@ -79,4 +85,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Login 
