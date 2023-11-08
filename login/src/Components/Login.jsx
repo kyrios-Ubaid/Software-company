@@ -27,8 +27,9 @@ function Login() {
             axios.post('http://localhost:81/login', values)
                 .then((res) => {
                     if (res.data === "Success") {
-                        localStorage.setItem("token","")
+                        
                         navigate('/home');
+                        localStorage.setItem("token","");
                     } else {
                         alert("No record existed");
                     }

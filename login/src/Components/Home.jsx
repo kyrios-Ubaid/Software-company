@@ -1,17 +1,28 @@
-import React from 'react';
-import {  useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const loggedin = token !== null; // Check if the token is not null
 
-  if (!loggedin) {
-    return navigate('/'); // You might want to return null or another component when not logged in
-  }
+  const handleLogout = () => {
+   
+    localStorage.removeItem("token");
+
+
+    navigate('/'); 
+  };
+  useEffect(() => {
+    if (token === null) {
+      navigate('/');
+    }
+  },  navigate);
 
   return (
-    <div>Home</div>
+    <>
+      <h1>THis is Dashbord</h1>
+      <button onClick={handleLogout}>Logout</button>
+    </>
   );
 }
 
