@@ -7,8 +7,7 @@ function Home() {
   const loggedin = token !== null; // Check if the token is not null
 
   if (!loggedin) {
-    navigate('/');
-    return null; // You might want to return null or another component when not logged in
+    return navigate('/'); // You might want to return null or another component when not logged in
   }
 
   return (

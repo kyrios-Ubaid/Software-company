@@ -27,13 +27,14 @@ function Login() {
             axios.post('http://localhost:81/login', values)
                 .then((res) => {
                     if (res.data === "Success") {
+                        localStorage.setItem("token","")
                         navigate('/home');
                     } else {
                         alert("No record existed");
                     }
                 })
                 .catch((err) => console.log(err));
-                localStorage.setItem("token","^*&bvcbvch698HJ4^%^fd^%$FGD")
+                
         }
     }, [errors, values, navigate]);
 
