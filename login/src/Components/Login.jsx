@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {Link, useNavigate} from 'react-router-dom';
-import Signup from './Signup';
+
 import Validation from '../LoginValidation'; 
 import axios from 'axios';
 
@@ -33,6 +33,7 @@ function Login() {
                     }
                 })
                 .catch((err) => console.log(err));
+                localStorage.setItem("token","^*&bvcbvch698HJ4^%^fd^%$FGD")
         }
     }, [errors, values, navigate]);
 
@@ -76,7 +77,7 @@ function Login() {
             </div>
             <p className='flex justify-center font-bold'>OR</p>
             <div>
-                <p className='text-zinc-500'>Need an Account? <span className='text-black font-bold underline underline-offset-4'> <Link to="Signup">SignUp</Link></span></p>
+                <p className='text-zinc-500'>Need an Account? <span className='text-black font-bold underline underline-offset-4'> <Link to="/Signup">SignUp</Link></span></p>
                 </div>
             </form>
         </div>
